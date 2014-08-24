@@ -1,0 +1,9 @@
+Backup of my personal system config files including
+.gitconfig
+.bashrc
+.aliases
+.vimrc
+bin directory of useful scripts
+
+Eventually I'll write a script to install all of these
+in the right places automatically.
