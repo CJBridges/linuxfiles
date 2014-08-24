@@ -1,0 +1,4 @@
+#!/bin/bash
+# Script to run same command in multiple subdirectories
+
+ls -d * | parallel -k "cd {} && $@"

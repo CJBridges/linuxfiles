@@ -1,0 +1,10 @@
+set print object on
+set print pretty on
+set confirm off
+set history expansion
+set history save
+set history filename ~/.gdbhist
+set symbol-reloading on
+set print max-symbolic-offset 1
+handle SIG32 nostop noprint
+set print elements 600

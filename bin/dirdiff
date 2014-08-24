@@ -1,0 +1,37 @@
+#!/bin/bash
+
+for i in $*
+do
+        case ${i} in
+        -x)
+                shift
+                x=yes
+                ;;
+        esac
+done
+
+DIROLD=$1
+DIRNEW=$2
+
+echo "The following files do not exist."
+echo "---------------------------------"
+FILES=`ls ${DIRNEW}`
+for f in $FILES
+do
+    if [ -e ${DIROLD}/${f} ]
+    then 
+        FILES2="${FILES2} ${f}"
+    else
+        echo "${DIROLD}/${f}"
+    fi
+done
+echo "---------------------------------"
+
+for f in $FILES2
+do
+    if [ -z "${x}" ]; then
+        diff -p -u -b -r -xSCCS -x*.o -x*.a -x*.so -xdepend ${DIROLD}/${f} ${DIRNEW}/${f}
+    else
+        tkdiff ${DIROLD}/${f} ${DIRNEW}/${f}
+    fi
+done

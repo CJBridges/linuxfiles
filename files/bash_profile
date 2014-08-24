@@ -1,0 +1,47 @@
+# .bash_profile
+
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+	. ~/.bashrc
+fi
+
+# User specific environment and startup programs
+
+PATH=$PATH:$HOME/bin:~/ksh
+BASH_ENV=$HOME/.bashrc
+USERNAME=""
+
+export USERNAME BASH_ENV PATH
+
+SSH_AGENT_ENV_FILE=~/.ssh/ssh-agent.`hostname`.env
+
+start_agent() {
+    #echo -n "Do you wish to start an ssh-agent? <y/N> "
+    #read ans
+    #if [ "$ans" = "y" ]; then
+    ssh-agent > $SSH_AGENT_ENV_FILE
+    if [ $? -eq 0 ]; then
+        echo "ssh-agent started"
+        . $SSH_AGENT_ENV_FILE
+        echo "Adding RSA identity to ssh-agent..."
+        ssh-add
+        ssh-add id_rsa_for_git
+    fi
+    #else
+    #    rm -f $SSH_AUTH_SOCK
+    #    rm -f $SSH_AGENT_ENV_FILE
+    #fi
+}
+
+if [ -f "$SSH_AGENT_ENV_FILE" ]; then
+    . $SSH_AGENT_ENV_FILE > /dev/null
+    ps -f -p $SSH_AGENT_PID 2>/dev/null >/dev/null
+    if [ $? -eq 0 ]; then
+        echo "ssh-agent found"
+    else
+        start_agent
+    fi
+else
+    start_agent
+fi
+

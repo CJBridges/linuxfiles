@@ -1,0 +1,11 @@
+#!/bin/bash
+#Return difference in seconds between two dates
+#Input is two arguments in the form of date output:
+#    Thu Aug 21 22:01:46 PDT 2014
+
+if [ ! $# == 2 ]; then
+    echo "requires dates"
+    exit 1
+fi
+
+echo $(($(date -d "$2" "+%s") - $(date -d "$1" "+%s")))

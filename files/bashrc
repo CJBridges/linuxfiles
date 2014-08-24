@@ -1,0 +1,33 @@
+if [ -f ~/.aliases ]; then
+    . ~/.aliases
+fi
+
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
+
+. ~/.rvm/scripts/rvm
+
+export JAVA_HOME=/usr/lib/jvm/java-1.6.0-openjdk-amd64/
+PATH=$JAVA_HOME/bin:$PATH
+M2_HOME=~/tmp2/apache-maven-3.2.2/
+export M2=$M2_HOME/bin
+export MAVEN_OPTS="-Xmx2g -XX:MaxPermSize=1024m"
+export PATH=$M2_HOME/bin:$PATH
+
+export PATH=~/bin/:$PATH
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+
+. ~/mvn_with_color
+
+skyscp(){
+    scp -P $1 $2 root@services-uswest.skytap.com:~/
+}

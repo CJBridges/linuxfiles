@@ -1,0 +1,17 @@
+check_maven_version() {
+  if [ -z `which mvn` ]; then
+    die "maven not installed.  Please install maven 3.0.5 or higher"
+  fi
+
+  MVN_VERSION=`mvn -version | grep -o "Apache Maven [0-9].[0-9].[0-9]" | grep -o "[0-9].[0-9].[0-9]"`
+  # First digit*100 + second digit*10 + 3rd digit
+  NORMALIZED_VERSION=$(( ${MVN_VERSION:0:1} * 100 + ${MVN_VERSION:2:1} * 10 + ${MVN_VERSION:4:1} ))
+  echo $MVN_VERSION normalizes to $NORMALIZED_VERSION
+
+  # Must be newer than 3.0.5
+  if [[ $NORMALIZED_VERSION -lt 305 ]]; then
+    die "Maven version is too low.  Please update to 3.0.5 or higher."
+  fi
+}
+
+check_maven_version

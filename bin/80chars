@@ -1,0 +1,5 @@
+#!/bin/bash
+# Script to check if a files has lines over 80 characters and dump the output
+# to stdout with line numbers
+
+grep  -n '.\{81,\}' $*

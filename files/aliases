@@ -1,0 +1,7 @@
+alias gentags='ctags -R -f ~/.tags --languages=java /path/to/src'
+alias idea='nohup sh /usr/local/idea/bin/idea.sh >/dev/null 2>&1 &'
+alias psgrep='ps auxww | grep'
+alias Od='od -A d -v -t x1' 
+alias py='/usr/local/bin/python2.7'
+alias g='git'
+alias sky="sshpass -p pwdhere ssh root@services-uswest.skytap.com -p "

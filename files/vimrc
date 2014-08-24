@@ -1,0 +1,119 @@
+set background=dark
+
+set backspace=2
+
+if &term =~ "xterm"
+if has("terminfo")
+  set t_Co=8
+  set t_Sf=[3%p1%dm
+  set t_Sb=[4%p1%dm
+else
+  set t_Co=8
+  set t_Sf=[3%dm
+  set t_Sb=[4%dm
+endif
+endif
+
+syntax on
+
+set undolevels=30
+
+"set tags=./tags,../tags,../../tags,../../../tags,../../../../tags,../../../../../tags,../../../../../../tags,../../../../../../../tags,../../../../../../../../tags,../../../../../../../../../tags,../../../../../../../../../../tags,../../../../../../../../../../../tags
+
+set et
+set tabstop=8
+set smarttab
+set softtabstop=4
+set expandtab
+set shiftwidth=4
+set report=1
+set exrc
+"set backup
+set nomesg
+set directory=/tmp
+set hlsearch
+" vim options:
+"
+"      from edit mode, this comments a line
+"map  :s@\([    ]*\)\(.*\)@\1/\* \2 \*/@
+"      turn C++ comments into C comments:
+"map  :1,$ s@\([        ]*\)//\(.*\)@\1/\*\2 \*/@
+"      and this uncomments it.
+"map  :s@\([    ]*\)/\*[       ]*\([^*]*\)[    ]*\*/@\1\2
+"
+"      read a buffer file (~/.vibuffer)
+"map =r :r ~${user}/.vibuffer
+map =r :r ~/.vibuffer
+"      write to it
+map =w :'k,'l w! ~/.vibuffer
+"      delete the buffer
+map =e :'k,'l d
+
+"Fix ctags to prompt if multiples exist
+noremap  <C-]>  g<C-]>
+"
+" remove trailing tabs/blanks from this line
+"map  :s@[     ]*$@@
+"
+"map T :r! assert @
+"map ^[[11~ :r! assert @^[
+"map [11~ :r! assert @^[
+"      start a block ({'s), leaving you in the middle...
+"map!  { } O
+"
+" F1: nuke included text after current position:
+map OP :.,$ !sed -e '/>.*$/ d'
+"      F2/F3: reset tabstops
+map OQ :set tabstop=4
+map OR :set tabstop=8
+"      F4/F5: reset list
+map OS :set list
+map [15~ :set nolist
+"   F6: offset everything by one space:
+map [17~ :0:%s/\</ /:0:%s/^ >/>/
+"F7 delete current line, move it to bottom of file, come back to this position:
+map [18~ ddmsGp's
+"
+" block cut/paste stuff i got from someone else:
+"map =k meo256i `ejr^m'b-`bkr^!'ercut -k
+"map =x meo256i `ejr^m'b-`bkr^!'ercut -x
+"map =P moO256i `okr^!Grcut -P
+"map =p moO256i `okr^!Grcut -p
+
+"
+let Tlist_Ctags_Cmd = '~/.vim/bin/ctags'
+
+" Opens the Tag List Automatically
+" let Tlist_Auto_Open = 1
+
+let Tlist_Display_Prototype = 1
+
+" Sort the method names by alphabetical order instead of the order
+" specified in the file.
+let Tlist_Sort_Type = "name"
+
+" Set the window width to 35 Cols.
+let Tlist_WinWidth = 35 
+
+" Key Maps for using Tag Lists
+noremap <silent> <F9>   :Tlist<CR>
+noremap <silent> <F10>   :TlistShowPrototype<CR>
+noremap <silent> <F11>   :TlistSync<CR>
+
+" Commands for Check out and check in using SCCS and Teamware
+" Checks out file for making changes
+com -nargs=0 CCO :! cd `dirname %`; sccs edit %
+
+" Checks in changes
+
+com -nargs=0 CCI :! cd `dirname %`; sccs delget %
+
+" jump to last known position when entering file:
+:au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g'\"" | endif
+
+"
+" reindent a block: go to beginning {, type =%
+"
+
+":hi Constant ctermfg=magenta cterm=none
+set tags=~/.tags

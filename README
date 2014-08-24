@@ -7,3 +7,6 @@ bin directory of useful scripts
 
 Eventually I'll write a script to install all of these
 in the right places automatically.
+
+git completion script:
+https://github.com/git/git/blob/master/contrib/completion/git-completion.bash

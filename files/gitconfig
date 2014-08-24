@@ -1,0 +1,37 @@
+[core]
+    editor = vim
+    excludesfile = ~/.gitignore
+
+[alias]
+#Mine
+	pr = pull --rebase
+	pushn = push --dry-run
+	prune-all = !git remote | xargs -n 1 git remote prune
+	edit-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; vim `f`"
+	add-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`"
+	empty-tree-sha1 = hash-object -t tree /dev/null
+	f = "!git fetch --all; git fetch --all --prune --tags"
+        cdd = !cd $GIT_PREFIX
+	lstat = log --stat=120,100 --stat-graph-width=20
+#Placeholder - after this is the ones installed from the git repo
+	co = checkout
+	st = status
+	com = commit
+	ucdiff = diff --unified=15 --color
+	ucwdiff = diff --unified=15 --color --word-diff=color
+	lg = log --pretty=format:'%Cred%h%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset %C(yellow)%d%Creset'
+	lg2 = log --pretty=format:'%Cred%h%Creset %Cgreen(%cd) %C(bold blue)<%an>%Creset %C(yellow)%d%Creset %n%w(,5,5)%B'
+	graph = log --graph --pretty=format:'%Cred%h%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset %C(yellow)%d%Creset'
+	top = rev-parse --show-toplevel
+	diffstat = diff --stat -r
+	createcscope = !cd `git top` && make create-cscope
+	cscope = !cscope -d -P `git top` -i `git top`/.filelist -f `git top`/.cscope/cscope.out
+	createctags = !cd `git top` && make ctags
+	createjtags = !find `git top` -name "*.java" | xargs ctags -f ~/.tags 
+	aliases = !git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/ = /'
+        ff = !git ls-tree -r HEAD --name-only | grep
+
+[color]
+	status = auto
+	diff = auto
+	branch = auto
