@@ -26,6 +26,9 @@ export PATH=~/bin/:$PATH
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
+# My prompt - two lines, full path in green
+export PS1="\n\h:\[\e[0;32m\]\w\[\e[m\]\$(__git_ps1)\n[\u]$ "
+
 . ~/mvn_with_color
 
 skyscp(){
