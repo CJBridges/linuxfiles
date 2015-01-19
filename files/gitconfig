@@ -29,7 +29,7 @@
 	createctags = !cd `git top` && make ctags
 	createjtags = !find `git top` -name "*.java" | xargs ctags -f ~/.tags 
 	aliases = !git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/ = /'
-        ff = !git ls-tree -r HEAD --name-only | grep
+        ff = !cd ${GIT_PREFIX:-.} && git ls-tree -r HEAD --name-only $(git top) | sed "s?^?$(git rev-parse --show-cdup)?" | grep
 
 [color]
 	status = auto
